@@ -1,0 +1,13 @@
+type Query {
+    """
+    Return all users.
+    """
+    GetAllUsers: [User!]!
+}
+
+type Mutation {
+    """
+    Create new user.
+    """
+  createUser(input: NewUser!): User!
+}
