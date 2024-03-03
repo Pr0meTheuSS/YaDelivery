@@ -27,7 +27,7 @@ func NewApp(cfg *config.Config) *App {
 	mux.Handle("/", playground.Handler("GraphQL playground", "/query"))
 
 	// Пример добавления мидлвэра только для конкретного пути
-	mux.HandleFunc("/", AuthMiddleware(srv.ServeHTTP))
+	// mux.HandleFunc("/", AuthMiddleware(srv.ServeHTTP))
 	mux.HandleFunc("/query", srv.ServeHTTP) // Для других запросов используем сервер без мидлвэра
 
 	log.Printf("Connect to http://localhost:%s/ for GraphQL playground", strconv.Itoa(cfg.Port))
