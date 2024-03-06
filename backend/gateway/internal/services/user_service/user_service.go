@@ -20,7 +20,6 @@ type UserServiceImpl struct {
 
 func (s *UserServiceImpl) Create(ctx context.Context, user *models.User) (*models.User, error) {
 	logrus.Info("UserServiceImpl.Create(ctx, user models.User) called")
-
 	return s.UserRepo.Create(ctx, user)
 }
 

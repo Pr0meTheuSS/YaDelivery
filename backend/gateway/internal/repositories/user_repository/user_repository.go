@@ -26,7 +26,6 @@ func (r *UserRepositoryImpl) Create(ctx context.Context, user *models.User) (*mo
 	newUser.ID = r.idGenerator
 
 	r.Users[newUser.ID] = newUser
-
 	return mapDAOUserToModelUser(newUser), nil
 }
 
