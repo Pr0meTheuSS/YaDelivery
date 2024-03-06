@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+.shop-card-div {
+    display: flex;
+    background-color: #333;
+    margin: 20px;
+
+    border: 2px;
+    border-color: black;
+    border-radius: 15px;
+    padding: 11px;
+    border-style: solid;
+
+    height: 15vh;
+    justify-content:flex-start;
+}
+
+img {
+    border-radius: 10px;
+}
+li {
+    list-style: none;
+}
+
+
+h2, h4 {
+    /* border-color: red;
+    border-style: solid; */
+
+    color: #ccc;
+    font-family: Playfair Display, sans-serif;
+    /* font-style: italic; */
+    /* font-weight: 50; */
+    font-weight: 300;
+}
+
+.text-data-wrapper {
+    display: flexbox;
+    padding-left: 20px;
+}
+
+.address {
+    text-align: left;
+    margin-top: -15px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 450;
+}
