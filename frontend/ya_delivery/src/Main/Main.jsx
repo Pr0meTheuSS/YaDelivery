@@ -1,16 +1,15 @@
-import { AppBar } from "@mui/material";
 import ShopCardsList from "../ShopCardsList/ShopCardsList"
 import { useEffect } from "react";
-
+import CustomAppBar from "../CcustomAppBar/CustomAppBar";
 const Main = () => {
     useEffect(() => {
         document.title = 'Ya.Dostavka, ti - pidor';
       }, []);
     return (
         <>
-            <AppBar position="static">
+            <CustomAppBar position="static">
                 <div>HELLO</div>
-            </AppBar>
+            </CustomAppBar>
                 <ShopCardsList/>    
         </>
     )

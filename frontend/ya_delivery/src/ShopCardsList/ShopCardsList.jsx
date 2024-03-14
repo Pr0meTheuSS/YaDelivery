@@ -4,13 +4,13 @@ import { Grid } from "@mui/material";
 const ShopCardsList = ({children}) => {
     return (
 
-        <Grid      
+        <Grid
+        container  
         display="flex"
         flexDirection="column"
         position="right"
         width='75vw'
-        marginRight={1}
-sx={{position: 'absolute', right: 0, p: 2, bgcolor: 'rgba(83, 83, 83, .5)', borderRadius: '8px'}}>
+sx={{position: 'absolute', marginTop: 10, right: 0, p: 2, bgcolor: 'rgba(83, 83, 83, .5)', borderRadius: '8px'}}>
                 {children}
                 <ShopCard/>
                 <ShopCard/>
