@@ -1,7 +1,11 @@
 import logo from '../logo.svg';
 import './App.css';
+import { useEffect } from 'react';
 
 function App() {
+  useEffect(() => {
+    document.title = 'Ya.Dostavka, ti - pidor';
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
