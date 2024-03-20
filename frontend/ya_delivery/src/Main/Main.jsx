@@ -1,6 +1,7 @@
 import ShopCardsList from "../ShopCardsList/ShopCardsList"
 import { useEffect } from "react";
-import CustomAppBar from "../CcustomAppBar/CustomAppBar";
+import CustomAppBar from "../CustomAppBar/CustomAppBar";
+
 const Main = () => {
     useEffect(() => {
         document.title = 'Ya.Dostavka, ti - pidor';
@@ -8,7 +9,6 @@ const Main = () => {
     return (
         <>
             <CustomAppBar position="static">
-                <div>HELLO</div>
             </CustomAppBar>
                 <ShopCardsList/>    
         </>

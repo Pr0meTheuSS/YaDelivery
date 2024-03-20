@@ -10,7 +10,8 @@ const ShopCardsList = ({children}) => {
         flexDirection="column"
         position="right"
         width='75vw'
-sx={{position: 'absolute', marginTop: 10, right: 0, p: 2, bgcolor: 'rgba(83, 83, 83, .5)', borderRadius: '8px'}}>
+sx={
+    {position: 'absolute', marginTop: 10, right: 0, p: 2, bgcolor: 'rgba(83, 83, 83, .5)', borderRadius: '8px' }}>
                 {children}
                 <ShopCard/>
                 <ShopCard/>

@@ -1,15 +1,30 @@
 import './ShopCard.css';
 import logo from '../assets/base-shop-image.png'
 import { Box, Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const ShopCard = (props) => {
+    const [id] = useState(1);
+
+    let navigate = useNavigate(); 
+    const routeChange = () =>{ 
+      let path = `shops/` + id; 
+      navigate(path);
+    }
+
+    const openCardPage = () => {
+        alert('openCardPage');
+        routeChange();
+    }
+
     return(
         <Grid item sx={6}>
-            <Box item
+            <Box item onClick= {openCardPage}
             my={4}
             display="flex"
             alignItems="center"
-            sx={{ p: 2, bgcolor: 'rgba(83, 83, 83, .5)', borderRadius: '8px'}}
+            sx={{ p: 2, bgcolor: 'rgba(83, 83, 83, .5)', borderRadius: '8px', '&:hover': {backgroundColor: '#444'}}}
             >
 
                 <img src={logo} alt="Изображение магазина не установлено"></img>

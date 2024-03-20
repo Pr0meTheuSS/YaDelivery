@@ -1,40 +1,36 @@
-import React, { useState } from 'react';
+import React from "react";
+import { MapContainer, Popup, Marker, TileLayer } from "react-leaflet";
+import L from "leaflet";
+import 'leaflet/dist/leaflet.css';
+
+const position = [54.842072, 83.0926071]
 
 const GeolocationPage = () => {
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
-  const [error, setError] = useState(null);
+  const iconPerson = new L.Icon({
+    iconUrl: '../assets/base-shop-image.png',
+    iconRetinaUrl: '../assets/base-shop-image.png',
+    iconAnchor: null,
+    popupAnchor: null,
+    shadowUrl: null,
+    shadowSize: null,
+    shadowAnchor: null,
+    iconSize: new L.Point(60, 75),
+    className: 'leaflet-div-icon'
+});
 
-  const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLatitude(position.coords.latitude);
-          setLongitude(position.coords.longitude);
-        },
-        (error) => {
-          setError(error.message);
-        }
-      );
-    } else {
-      setError('Геолокация не поддерживается вашим браузером');
-    }
-  };
-
-  return (
-    <div>
-      <h1>Запрос геопозиции</h1>
-      <button onClick={getLocation}>Получить геопозицию</button>
-      {latitude && longitude && (
-        <div>
-          <h2>Ваши координаты:</h2>
-          <p>Широта: {latitude}</p>
-          <p>Долгота: {longitude}</p>
-        </div>
-      )}
-      {error && <p>Ошибка: {error}</p>}
-    </div>
-  );
-};
+return (
+      <MapContainer center={position} zoom={13} scrollWheelZoom={true}  style={{height: '50vh', width: '90vw'}}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={position} icon={iconPerson}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+      </MapContainer>
+  )
+}
 
 export default GeolocationPage;
