@@ -4,8 +4,6 @@ import (
 	"context"
 	"gateway/internal/api/graph"
 	"gateway/internal/config"
-	userrepository "gateway/internal/repositories/user_repository"
-	userservice "gateway/internal/services/user_service"
 	"log"
 	"net/http"
 	"strconv"
@@ -20,7 +18,7 @@ type App struct {
 }
 
 func NewApp(cfg *config.Config) *App {
-	resolver := graph.NewResolver(userservice.NewUserService(userrepository.NewUserRepository()))
+	resolver := graph.NewResolver()
 	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: resolver}))
 
 	mux := http.NewServeMux()

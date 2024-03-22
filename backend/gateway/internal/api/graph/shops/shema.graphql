@@ -1,0 +1,149 @@
+type Organization {
+    id: ID!
+    name: String!
+    
+    OGRN: String!
+    INN: String!
+    KPP: String #не ебу
+    UrAddres: String! "для ИП- адрес регистрации"
+
+    #вообще еще всякое значится как обязательное,
+    #но пусть будет так
+
+    shops: [Shop!]
+}
+
+type Shop {
+    id: ID!
+    name: String!
+    image: String #URL
+    tags: [Tags!]
+    address: String!
+    geoPos: Coord!
+    Info: String
+}
+
+type Product {
+    #idShop: ID!
+    idPriduct: ID!
+    name: String!
+    image: [String] #URL
+    info: String! #описание
+    weight: Int! #вес в граммах
+    
+    foodInfo: FoodInfo #Существует только в съедобных продуктах
+}
+
+type FoodInfo {
+    squirrels: Int #бЕлки
+    fats: Int #жиры
+    carbohydrates: Int #углеводы
+    calories: Int #калории
+    allergens: [String!] #продукты-аллергены
+    compound: String! #состав
+}
+
+type Coord {
+    lat: Float!
+    lon: Float!
+}
+
+
+input CreateOrganizationInput {
+    name: String!
+    OGRN: String!
+    INN: String!
+    KPP: String #не ебу
+    UrAddres: String! #для ИП- адрес регистрации
+}
+
+input UpdateOrganizationInput {
+    id: ID!
+    name: String
+    OGRN: String
+    INN: String
+    KPP: String #не ебу
+    UrAddres: String #для ИП- адрес регистрации
+}
+
+input CreateShopInput {
+    idOrganization: ID!
+    name: String!
+    image: String #URL
+    tags: [Tags]!
+    address: String!
+    lat: Float!
+    lon: Float!
+    Info: String
+}
+
+input UpdateShopInput {
+    idShop: ID!
+    name: String
+    image: String #URL
+    tags: [Tags]
+    address: String
+    lat: Float
+    lon: Float
+    Info: String
+}
+
+input FoodInfoInput {
+    squirrels: Int #белки
+    fats: Int #жиры
+    carbohydrates: Int #углеводы
+    calories: Int #калории
+    allergens: [String!] #продукты-аллергены
+    compound: String! #состав
+}
+
+input CreateProductInput {
+    idShop: ID!
+
+    name: String!
+    image: String #URL
+    info: String #описание
+    weight: Int #вес в граммах
+    
+    foodInfo: FoodInfoInput #Существует только в съедобных продуктах
+}
+
+input UpdateProductInput {
+    idShop: ID!
+    idProduct: ID!
+
+    name: String
+    image: String #URL
+    info: String #описание
+    weight: Int #вес в граммах
+    
+    foodInfo: FoodInfoInput #Существует только в съедобных продуктах
+}
+
+
+enum Tags {
+    "теги для ресторанов"
+    BURGER
+    SHUSHI
+    KAVKAZ
+    RUSSIA
+    PIZZA
+    CHINA
+    JAPAN
+    GRUZIA
+    STREETFOOD
+    SOUP
+    COFFIE
+    YZBEK
+    SHASHLIK
+    VIPECHKA
+    DESERTY
+    SENDVICHI
+    EUROPE
+    BLINI
+    FASTFOOD
+    CHILDREN
+    VOSTOK
+    BYRIAT
+    STEIKI
+}
