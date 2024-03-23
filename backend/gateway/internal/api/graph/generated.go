@@ -82,6 +82,7 @@ type ComplexityRoot struct {
 	}
 
 	Product struct {
+		Cost      func(childComplexity int) int
 		FoodInfo  func(childComplexity int) int
 		IDPriduct func(childComplexity int) int
 		Image     func(childComplexity int) int
@@ -339,6 +340,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Organization.UrAddres(childComplexity), true
+
+	case "Product.cost":
+		if e.complexity.Product.Cost == nil {
+			break
+		}
+
+		return e.complexity.Product.Cost(childComplexity), true
 
 	case "Product.foodInfo":
 		if e.complexity.Product.FoodInfo == nil {
@@ -1593,6 +1601,8 @@ func (ec *executionContext) fieldContext_Mutation_createProduct(ctx context.Cont
 			switch field.Name {
 			case "idPriduct":
 				return ec.fieldContext_Product_idPriduct(ctx, field)
+			case "cost":
+				return ec.fieldContext_Product_cost(ctx, field)
 			case "name":
 				return ec.fieldContext_Product_name(ctx, field)
 			case "image":
@@ -1662,6 +1672,8 @@ func (ec *executionContext) fieldContext_Mutation_updateProduct(ctx context.Cont
 			switch field.Name {
 			case "idPriduct":
 				return ec.fieldContext_Product_idPriduct(ctx, field)
+			case "cost":
+				return ec.fieldContext_Product_cost(ctx, field)
 			case "name":
 				return ec.fieldContext_Product_name(ctx, field)
 			case "image":
@@ -2047,6 +2059,50 @@ func (ec *executionContext) fieldContext_Product_idPriduct(ctx context.Context, 
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type ID does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Product_cost(ctx context.Context, field graphql.CollectedField, obj *model.Product) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Product_cost(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Cost, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(int)
+	fc.Result = res
+	return ec.marshalNInt2int(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Product_cost(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Product",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Int does not have child fields")
 		},
 	}
 	return fc, nil
@@ -2577,6 +2633,8 @@ func (ec *executionContext) fieldContext_Query_GetProducts(ctx context.Context, 
 			switch field.Name {
 			case "idPriduct":
 				return ec.fieldContext_Product_idPriduct(ctx, field)
+			case "cost":
+				return ec.fieldContext_Product_cost(ctx, field)
 			case "name":
 				return ec.fieldContext_Product_name(ctx, field)
 			case "image":
@@ -5006,7 +5064,7 @@ func (ec *executionContext) unmarshalInputCreateProductInput(ctx context.Context
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"idShop", "name", "image", "info", "weight", "foodInfo"}
+	fieldsInOrder := [...]string{"idShop", "cost", "name", "image", "info", "weight", "foodInfo"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
@@ -5020,6 +5078,13 @@ func (ec *executionContext) unmarshalInputCreateProductInput(ctx context.Context
 				return it, err
 			}
 			it.IDShop = data
+		case "cost":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("cost"))
+			data, err := ec.unmarshalNInt2int(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Cost = data
 		case "name":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
 			data, err := ec.unmarshalNString2string(ctx, v)
@@ -5302,7 +5367,7 @@ func (ec *executionContext) unmarshalInputUpdateProductInput(ctx context.Context
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"idShop", "idProduct", "name", "image", "info", "weight", "foodInfo"}
+	fieldsInOrder := [...]string{"idShop", "idProduct", "cost", "name", "image", "info", "weight", "foodInfo"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
@@ -5323,6 +5388,13 @@ func (ec *executionContext) unmarshalInputUpdateProductInput(ctx context.Context
 				return it, err
 			}
 			it.IDProduct = data
+		case "cost":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("cost"))
+			data, err := ec.unmarshalNInt2int(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Cost = data
 		case "name":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
 			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
@@ -5708,6 +5780,11 @@ func (ec *executionContext) _Product(ctx context.Context, sel ast.SelectionSet, 
 			out.Values[i] = graphql.MarshalString("Product")
 		case "idPriduct":
 			out.Values[i] = ec._Product_idPriduct(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "cost":
+			out.Values[i] = ec._Product_cost(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}

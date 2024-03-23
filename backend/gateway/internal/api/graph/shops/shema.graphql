@@ -26,6 +26,8 @@ type Shop {
 type Product {
     #idShop: ID!
     idPriduct: ID!
+    
+    cost: Int!
     name: String!
     image: [String] #URL
     info: String! #описание
@@ -100,6 +102,7 @@ input FoodInfoInput {
 input CreateProductInput {
     idShop: ID!
 
+    cost: Int!
     name: String!
     image: String #URL
     info: String #описание
@@ -112,6 +115,7 @@ input UpdateProductInput {
     idShop: ID!
     idProduct: ID!
 
+    cost: Int!
     name: String
     image: String #URL
     info: String #описание

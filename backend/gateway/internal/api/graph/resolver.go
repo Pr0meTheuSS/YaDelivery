@@ -14,9 +14,9 @@ import (
 
 type Resolver struct {
 	userService    userservice.UserService
-	shopService    shopService.ShopService
-	orgService     organizationService.OrganizationService
-	productService productService.ProductService
+	shopService    shopService.IShopService
+	orgService     organizationService.IOrganizationService
+	productService productService.IProductService
 }
 
 func NewResolver() *Resolver {

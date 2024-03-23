@@ -23,6 +23,7 @@ type CreateOrganizationInput struct {
 
 type CreateProductInput struct {
 	IDShop   string         `json:"idShop"`
+	Cost     int            `json:"cost"`
 	Name     string         `json:"name"`
 	Image    *string        `json:"image,omitempty"`
 	Info     *string        `json:"info,omitempty"`
@@ -80,6 +81,7 @@ type Organization struct {
 
 type Product struct {
 	IDPriduct string    `json:"idPriduct"`
+	Cost      int       `json:"cost"`
 	Name      string    `json:"name"`
 	Image     []*string `json:"image,omitempty"`
 	Info      string    `json:"info"`
@@ -112,6 +114,7 @@ type UpdateOrganizationInput struct {
 type UpdateProductInput struct {
 	IDShop    string         `json:"idShop"`
 	IDProduct string         `json:"idProduct"`
+	Cost      int            `json:"cost"`
 	Name      *string        `json:"name,omitempty"`
 	Image     *string        `json:"image,omitempty"`
 	Info      *string        `json:"info,omitempty"`

@@ -9,8 +9,8 @@ type ProductService struct {
 	//connShop net.Conn
 }
 
-func NewProductService() ProductService {
-	return ProductService{}
+func NewProductService() *ProductService {
+	return &ProductService{}
 }
 
 // Root

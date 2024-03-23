@@ -4,8 +4,8 @@ type OrganizationService struct {
 	//connShop net.Conn
 }
 
-func NewOrganizationService() OrganizationService {
-	return OrganizationService{}
+func NewOrganizationService() *OrganizationService {
+	return &OrganizationService{}
 }
 
 // Root
