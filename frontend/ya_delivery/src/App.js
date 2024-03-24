@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LoginForm from './Components/LoginForm/LoginForm'; 
 import RegistrationForm from './Components/RegistrationForm/RegistrationForm'; 
-
+import React from 'react';
 const App = () => {
   return (
     <div>
