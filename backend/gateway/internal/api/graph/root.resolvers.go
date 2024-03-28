@@ -22,24 +22,59 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) 
 	return mapModelUserToDTOUser(createdUser), err
 }
 
-func mapModelUserToDTOUser(createdUser *models.User) *model.User {
-	return &model.User{
-		ID:    fmt.Sprintf("%d", createdUser.ID),
-		Name:  createdUser.Name,
-		Email: createdUser.Email,
-	}
+// CreateOrganization is the resolver for the createOrganization field.
+func (r *mutationResolver) CreateOrganization(ctx context.Context, input model.CreateOrganizationInput) (*model.Organization, error) {
+	panic(fmt.Errorf("not implemented: CreateOrganization - createOrganization"))
 }
 
-func mapDTOUserToModelUser(createUserRequest model.NewUser) models.User {
-	return models.User{
-		Name:  createUserRequest.Name,
-		Email: createUserRequest.Email,
-	}
+// UpdateOrganization is the resolver for the updateOrganization field.
+func (r *mutationResolver) UpdateOrganization(ctx context.Context, input model.UpdateOrganizationInput) (*model.Organization, error) {
+	panic(fmt.Errorf("not implemented: UpdateOrganization - updateOrganization"))
+}
+
+// CreateShop is the resolver for the createShop field.
+func (r *mutationResolver) CreateShop(ctx context.Context, input model.CreateShopInput) (*model.Shop, error) {
+	panic(fmt.Errorf("not implemented: CreateShop - createShop"))
+}
+
+// UpdateShop is the resolver for the updateShop field.
+func (r *mutationResolver) UpdateShop(ctx context.Context, input model.UpdateShopInput) (*model.Shop, error) {
+	panic(fmt.Errorf("not implemented: UpdateShop - updateShop"))
+}
+
+// CreateProduct is the resolver for the createProduct field.
+func (r *mutationResolver) CreateProduct(ctx context.Context, productInput model.CreateProductInput) (*model.Product, error) {
+	panic(fmt.Errorf("not implemented: CreateProduct - createProduct"))
+}
+
+// UpdateProduct is the resolver for the updateProduct field.
+func (r *mutationResolver) UpdateProduct(ctx context.Context, input model.UpdateProductInput) (*model.Product, error) {
+	panic(fmt.Errorf("not implemented: UpdateProduct - updateProduct"))
 }
 
 // GetAllUsers is the resolver for the GetAllUsers field.
 func (r *queryResolver) GetAllUsers(ctx context.Context) ([]*model.User, error) {
 	panic(fmt.Errorf("not implemented: GetAllUsers - GetAllUsers"))
+}
+
+// GetOrganization is the resolver for the GetOrganization field.
+func (r *queryResolver) GetOrganization(ctx context.Context, idOrg string) (*model.Organization, error) {
+	panic(fmt.Errorf("not implemented: GetOrganization - GetOrganization"))
+}
+
+// GetOrganizationShops is the resolver for the GetOrganizationShops field.
+func (r *queryResolver) GetOrganizationShops(ctx context.Context, idOrg string) ([]*model.Shop, error) {
+	panic(fmt.Errorf("not implemented: GetOrganizationShops - GetOrganizationShops"))
+}
+
+// GetShops is the resolver for the GetShops field.
+func (r *queryResolver) GetShops(ctx context.Context, lat float64, lon float64) ([]*model.Shop, error) {
+	return r.shopService.GetShops(ctx, lat, lon)
+}
+
+// GetProducts is the resolver for the GetProducts field.
+func (r *queryResolver) GetProducts(ctx context.Context, idShop string) ([]*model.Product, error) {
+	return r.productService.GetProducts(ctx, "0")
 }
 
 // Mutation returns MutationResolver implementation.
@@ -50,3 +85,23 @@ func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+
+// !!! WARNING !!!
+// The code below was going to be deleted when updating resolvers. It has been copied here so you have
+// one last chance to move it out of harms way if you want. There are two reasons this happens:
+//   - When renaming or deleting a resolver the old code will be put in here. You can safely delete
+//     it when you're done.
+//   - You have helper methods in this file. Move them out to keep these resolver files clean.
+func mapModelUserToDTOUser(createdUser *models.User) *model.User {
+	return &model.User{
+		ID:    fmt.Sprintf("%d", createdUser.ID),
+		Name:  createdUser.Name,
+		Email: createdUser.Email,
+	}
+}
+func mapDTOUserToModelUser(createUserRequest model.NewUser) models.User {
+	return models.User{
+		Name:  createUserRequest.Name,
+		Email: createUserRequest.Email,
+	}
+}

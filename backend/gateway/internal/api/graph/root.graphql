@@ -1,13 +1,53 @@
 type Query {
-    """
-    Return all users.
-    """
-    GetAllUsers: [User!]!
+  """
+  Return all users.
+  """
+  GetAllUsers: [User!]!
+
+
+
+  ### root for shops/org service
+
+  "Returns organization page"
+  GetOrganization(idOrg: ID!): Organization!
+
+  "Returns organization shops"
+  GetOrganizationShops(idOrg: ID!): [Shop!]
+
+  "Returns all shop in valid radius"
+  GetShops(lat: Float!, lon: Float!): [Shop!] 
+
+  "Returns shop`s products"
+  GetProducts(idShop: ID!): [Product!]
+
+
 }
 
 type Mutation {
-    """
-    Create new user.
-    """
+  """
+  Create new user.
+  """
   createUser(input: NewUser!): User!
+
+  ### mutation for shops/org service
+  ##Organizations
+  "Create new organization"
+  createOrganization(input: CreateOrganizationInput!): Organization!
+
+  "Update organization"
+  updateOrganization(input: UpdateOrganizationInput!): Organization!
+
+  ##Shops
+  "Create new shop in organization"
+  createShop(input: CreateShopInput!): Shop!
+
+  "Update shop"
+  updateShop(input: UpdateShopInput!): Shop!
+
+  #Products
+  "Create new product in shop"
+  createProduct(productInput: CreateProductInput!): Product!
+
+  "Update product in shop"
+  updateProduct(input: UpdateProductInput!): Product!
 }
