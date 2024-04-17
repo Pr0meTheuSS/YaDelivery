@@ -1,7 +1,6 @@
 import React from "react";
 import './RegistrationForm.css'
 import { FaUser, FaLock, FaPray } from "react-icons/fa";
-import { FaMessage } from "react-icons/fa6";
 import useInput from "../../Hooks/InputHooks";
 
 const RegistrationForm = () => {
@@ -34,7 +33,7 @@ const RegistrationForm = () => {
 
                 <div className="input-box">
                     <input 
-                        name="email" 
+                        name="username" 
                         type="text" 
                         placeholder="Username" 
                         required 

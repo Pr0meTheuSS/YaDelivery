@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 
 const useValidation = (value, validations) => {
     const [isEmpty, setEmpty] = useState(true);
@@ -31,6 +31,8 @@ const useValidation = (value, validations) => {
                 case 'originalPassword':
                     String(value) === String(validations[validation]) ? setPasswordError(false) : setPasswordError(true);
                     break;
+
+                default: break;
             }
         }
     }, [value, validations]);

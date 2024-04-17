@@ -1,6 +1,7 @@
 import './LoginForm.css'
 import { FaUser, FaLock } from "react-icons/fa";
 import useInput from "../../Hooks/InputHooks";
+import React from 'react';
 
 const LoginForm = () => {
     const email = useInput('', {   
@@ -50,7 +51,7 @@ const LoginForm = () => {
           
                 <div className="remember-forgot">
                     <label><input type="checkbox" />Remember me</label>
-                    <a href="#">Forgot password?</a>
+                    <a href="register">Forgot password?</a>
                 </div>
 
                 <div className="register-link">
