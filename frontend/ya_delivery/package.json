@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "apollo-boost": "^0.4.9",
     "apollo-client": "^2.6.10",
+    "apollo-link-timeout": "^4.0.0",
     "graphql": "^16.8.1",
     "react": "^18.2.0",
     "react-apollo": "^3.1.5",

@@ -2,6 +2,8 @@ import React from "react";
 import './RegistrationForm.css'
 import { FaUser, FaLock, FaPray } from "react-icons/fa";
 import useInput from "../../Hooks/InputHooks";
+import { registerUserMutation } from "./Mutation"
+import { useMutation, gql } from '@apollo/client';
 
 const RegistrationForm = () => {
     const email = useInput('', {   
@@ -26,9 +28,38 @@ const RegistrationForm = () => {
         maxLen: 20
     });
 
+    const [registerUser, { data, loading, error }] = useMutation(registerUserMutation);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (password.value !== repeatedPassword.value) {
+            console.error("Passwords do not match");
+            return; // Выход, если пароли не совпадают
+        }
+        try {
+            const result = await registerUser({
+                variables: {
+                    username: username.value,
+                    email: email.value,
+                    password: password.value
+                }
+            });
+            console.log(result.data.registerUser.token); // Обработка токена после успешной регистрации
+            localStorage.setItem('authToken', result.data.registerUser.token); // Сохранение токена в localStorage
+        } catch (e) {
+            console.error("Registration error:", e);
+        }
+    };
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error occurred: {error.message}</p>;
+
     return (
         <div className="wrapper">
-            <form action="">
+            <form 
+                action=""
+                onSubmit={handleSubmit}
+            >
                 <h1>Register</h1>
 
                 <div className="input-box">

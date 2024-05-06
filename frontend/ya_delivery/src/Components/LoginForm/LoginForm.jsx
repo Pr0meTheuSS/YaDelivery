@@ -2,6 +2,8 @@ import './LoginForm.css'
 import { FaUser, FaLock } from "react-icons/fa";
 import useInput from "../../Hooks/InputHooks";
 import React from 'react';
+import { loginUserMutation } from './Mutation';
+import { useMutation, gql } from '@apollo/client';
 
 const LoginForm = () => {
     const email = useInput('', {   
@@ -14,9 +16,36 @@ const LoginForm = () => {
         minLen: 8
     });
 
+    // useMutation хук для отправки запроса
+    const [authenticate, { data, loading, error }] = useMutation(loginUserMutation);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        try {
+            const result = await authenticate({
+                variables: {
+                    email: email.value,
+                    password: password.value
+                }
+            });
+            console.log(result.data.authenticate.token); // Логирование полученного токена
+            // Сохраняем токен в localStorage
+            localStorage.setItem('authToken', result.data.authenticate.token);
+        } catch (error) {
+            console.error("Ошибка аутентификации", error);
+        }
+    };
+    
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>An error occurred: {error.message}</p>;
+
     return (
         <div className="wrapper" >
-            <form action="">
+            <form
+                action=""
+                onSubmit={handleSubmit}
+            >
                 <h1>Login</h1>
 
                 <div className="input-box">

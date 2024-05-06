@@ -1,6 +1,6 @@
-// import { compose } from 'recompose'
-// import { graphql } from 'react-apollo'
+import { compose } from 'recompose'
+import { graphql } from 'react-apollo'
 
-// import { registerUserMutation } from './Mutation'
+import { registerUserMutation } from './Mutation'
 
-// // export default compose(graphql(registerUserMutation));
+export default compose(graphql(registerUserMutation));

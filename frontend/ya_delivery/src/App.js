@@ -6,23 +6,24 @@ import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: 'https://flyby-router-demo.herokuapp.com/',
-  cache: new InMemoryCache(),
+    uri: 'http://localhost:8080',
+    cache: new InMemoryCache(),
+    timeout: 5000
 });
 
 const App = () => {
-  return (
+    return (
     <div>
-      <ApolloProvider client={client}>
+        <ApolloProvider client={client}>
         <BrowserRouter>
-          <Routes>
+            <Routes>
             <Route path="login" element={<LoginForm />} />
             <Route path="register" element={<RegistrationForm />} />
-          </Routes>
+            </Routes>
         </BrowserRouter>        
-      </ApolloProvider>
+        </ApolloProvider>
     </div>
-  );
+    );
 };
 
 export default App;
