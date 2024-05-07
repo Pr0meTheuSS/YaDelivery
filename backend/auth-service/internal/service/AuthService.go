@@ -38,7 +38,6 @@ func (s *AuthService) Login(
 		Email: user.Email,
 	}
 
-	log.Printf("%s %s", user.Username, user.Email)
 
 	token, err := jwt.GenerateJwtToken(user, time.Duration(time.Now().Day()*7))
 
