@@ -25,9 +25,14 @@ type Query {
 
 type Mutation {
   """
-  Create new user.
+  Sign in
   """
-  createUser(input: NewUser!): User!
+  register(input: RegistrationRequest!): RegistrationResponse!
+
+  """
+  Sign up
+  """
+  login(input: LoginRequest!): LoginResponse!
 
   ### mutation for shops/org service
   ##Organizations

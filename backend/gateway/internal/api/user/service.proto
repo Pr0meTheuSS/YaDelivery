@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package grpcAuthServiceProtocol;
+
+option go_package = "auth-service/pkg/grpcAuthServiceProtocol;grpcAuthServiceProtocol";
+
+service grpcAuthServiceProtocol {
+  rpc Login(UserLoginRequest) returns (UserLoginResponse);
+  rpc Register(UserRegistrationRequest) returns (UserRegisterResponse);
+  rpc Verify(TokenVerifyRequest) returns (TokenVerifyResponse);
+}
+
+message UserInfo {
+  string first_name = 1;
+  string last_name = 2;
+}
+
+message UserRegistrationRequest {
+  string first_name = 1;
+  string last_name = 2;
+  string email = 3;
+  string password = 4;
+}
+
+enum UserRegistrationState {
+  OK = 0;
+  USER_ALREADY_EXISTS = 1;
+  INTERNAL_SERVICE_FAIL = 2;
+}
+
+message UserRegisterResponse {
+  uint32 state = 1;
+}
+
+message UserLoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message UserLoginResponse {
+  UserInfo user = 1;
+  string token = 2;
+}
+
+message TokenVerifyRequest {
+  string token = 1;
+}
+
+enum TokenVerifyState {
+  VALID = 0;
+  BAD_TOKEN = 1;
+}
+
+message TokenVerifyResponse {
+  uint32 state = 1;
+}

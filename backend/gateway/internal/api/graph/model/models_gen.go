@@ -60,12 +60,19 @@ type FoodInfoInput struct {
 	Compound      string   `json:"compound"`
 }
 
-type Mutation struct {
+type LoginRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
-type NewUser struct {
+type LoginResponse struct {
+	ID    int    `json:"ID"`
 	Name  string `json:"name"`
 	Email string `json:"email"`
+	Token string `json:"token"`
+}
+
+type Mutation struct {
 }
 
 type Organization struct {
@@ -90,6 +97,16 @@ type Product struct {
 }
 
 type Query struct {
+}
+
+type RegistrationRequest struct {
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+type RegistrationResponse struct {
+	Status int `json:"status"`
 }
 
 type Shop struct {
@@ -134,9 +151,9 @@ type UpdateShopInput struct {
 }
 
 type User struct {
-	ID    string `json:"id"`
+	ID    int    `json:"ID"`
 	Name  string `json:"name"`
-	Email string `json:"email"`
+	Email string `json:"Email"`
 }
 
 type Tags string
