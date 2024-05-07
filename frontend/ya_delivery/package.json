@@ -16,7 +16,13 @@
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.22.3",
-    "web-vitals": "^2.1.4"
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.14",
+    "@mui/material": "^5.15.14",
+    "react-leaflet": "^4.2.1",
+    "react-scripts": "^3.0.1",
+    "web-vitals": "^3.5.2"
   },
   "scripts": {
     "start": "react-scripts start",

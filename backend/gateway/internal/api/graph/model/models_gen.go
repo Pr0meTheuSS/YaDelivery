@@ -2,6 +2,64 @@
 
 package model
 
+import (
+	"fmt"
+	"io"
+	"strconv"
+)
+
+type Coord struct {
+	Lat float64 `json:"lat"`
+	Lon float64 `json:"lon"`
+}
+
+type CreateOrganizationInput struct {
+	Name     string  `json:"name"`
+	Ogrn     string  `json:"OGRN"`
+	Inn      string  `json:"INN"`
+	Kpp      *string `json:"KPP,omitempty"`
+	UrAddres string  `json:"UrAddres"`
+}
+
+type CreateProductInput struct {
+	IDShop   string         `json:"idShop"`
+	Cost     int            `json:"cost"`
+	Name     string         `json:"name"`
+	Image    *string        `json:"image,omitempty"`
+	Info     *string        `json:"info,omitempty"`
+	Weight   *int           `json:"weight,omitempty"`
+	FoodInfo *FoodInfoInput `json:"foodInfo,omitempty"`
+}
+
+type CreateShopInput struct {
+	IDOrganization string  `json:"idOrganization"`
+	Name           string  `json:"name"`
+	Image          *string `json:"image,omitempty"`
+	Tags           []*Tags `json:"tags"`
+	Address        string  `json:"address"`
+	Lat            float64 `json:"lat"`
+	Lon            float64 `json:"lon"`
+	Info           *string `json:"Info,omitempty"`
+}
+
+type FoodInfo struct {
+	Squirrels     *int     `json:"squirrels,omitempty"`
+	Fats          *int     `json:"fats,omitempty"`
+	Carbohydrates *int     `json:"carbohydrates,omitempty"`
+	Calories      *int     `json:"calories,omitempty"`
+	Allergens     []string `json:"allergens,omitempty"`
+	Compound      string   `json:"compound"`
+}
+
+type FoodInfoInput struct {
+	Squirrels     *int     `json:"squirrels,omitempty"`
+	Fats          *int     `json:"fats,omitempty"`
+	Carbohydrates *int     `json:"carbohydrates,omitempty"`
+	Calories      *int     `json:"calories,omitempty"`
+	Allergens     []string `json:"allergens,omitempty"`
+	Compound      string   `json:"compound"`
+}
+
 type Mutation struct {
 }
 
@@ -10,11 +68,157 @@ type NewUser struct {
 	Email string `json:"email"`
 }
 
+type Organization struct {
+	ID       string  `json:"id"`
+	Name     string  `json:"name"`
+	Ogrn     string  `json:"OGRN"`
+	Inn      string  `json:"INN"`
+	Kpp      *string `json:"KPP,omitempty"`
+	UrAddres string  `json:"UrAddres"`
+	// для ИП- адрес регистрации
+	Shops []*Shop `json:"shops,omitempty"`
+}
+
+type Product struct {
+	IDPriduct string    `json:"idPriduct"`
+	Cost      int       `json:"cost"`
+	Name      string    `json:"name"`
+	Image     []*string `json:"image,omitempty"`
+	Info      string    `json:"info"`
+	Weight    int       `json:"weight"`
+	FoodInfo  *FoodInfo `json:"foodInfo,omitempty"`
+}
+
 type Query struct {
+}
+
+type Shop struct {
+	ID      string  `json:"id"`
+	Name    string  `json:"name"`
+	Image   *string `json:"image,omitempty"`
+	Tags    []Tags  `json:"tags,omitempty"`
+	Address string  `json:"address"`
+	GeoPos  *Coord  `json:"geoPos"`
+	Info    *string `json:"Info,omitempty"`
+}
+
+type UpdateOrganizationInput struct {
+	ID       string  `json:"id"`
+	Name     *string `json:"name,omitempty"`
+	Ogrn     *string `json:"OGRN,omitempty"`
+	Inn      *string `json:"INN,omitempty"`
+	Kpp      *string `json:"KPP,omitempty"`
+	UrAddres *string `json:"UrAddres,omitempty"`
+}
+
+type UpdateProductInput struct {
+	IDShop    string         `json:"idShop"`
+	IDProduct string         `json:"idProduct"`
+	Cost      int            `json:"cost"`
+	Name      *string        `json:"name,omitempty"`
+	Image     *string        `json:"image,omitempty"`
+	Info      *string        `json:"info,omitempty"`
+	Weight    *int           `json:"weight,omitempty"`
+	FoodInfo  *FoodInfoInput `json:"foodInfo,omitempty"`
+}
+
+type UpdateShopInput struct {
+	IDShop  string   `json:"idShop"`
+	Name    *string  `json:"name,omitempty"`
+	Image   *string  `json:"image,omitempty"`
+	Tags    []*Tags  `json:"tags,omitempty"`
+	Address *string  `json:"address,omitempty"`
+	Lat     *float64 `json:"lat,omitempty"`
+	Lon     *float64 `json:"lon,omitempty"`
+	Info    *string  `json:"Info,omitempty"`
 }
 
 type User struct {
 	ID    string `json:"id"`
 	Name  string `json:"name"`
 	Email string `json:"email"`
+}
+
+type Tags string
+
+const (
+	// теги для ресторанов
+	TagsBurger     Tags = "BURGER"
+	TagsShushi     Tags = "SHUSHI"
+	TagsKavkaz     Tags = "KAVKAZ"
+	TagsRussia     Tags = "RUSSIA"
+	TagsPizza      Tags = "PIZZA"
+	TagsChina      Tags = "CHINA"
+	TagsJapan      Tags = "JAPAN"
+	TagsGruzia     Tags = "GRUZIA"
+	TagsStreetfood Tags = "STREETFOOD"
+	TagsSoup       Tags = "SOUP"
+	TagsCoffie     Tags = "COFFIE"
+	TagsYzbek      Tags = "YZBEK"
+	TagsShashlik   Tags = "SHASHLIK"
+	TagsVipechka   Tags = "VIPECHKA"
+	TagsDeserty    Tags = "DESERTY"
+	TagsSendvichi  Tags = "SENDVICHI"
+	TagsEurope     Tags = "EUROPE"
+	TagsBlini      Tags = "BLINI"
+	TagsFastfood   Tags = "FASTFOOD"
+	TagsChildren   Tags = "CHILDREN"
+	TagsVostok     Tags = "VOSTOK"
+	TagsByriat     Tags = "BYRIAT"
+	TagsSteiki     Tags = "STEIKI"
+)
+
+var AllTags = []Tags{
+	TagsBurger,
+	TagsShushi,
+	TagsKavkaz,
+	TagsRussia,
+	TagsPizza,
+	TagsChina,
+	TagsJapan,
+	TagsGruzia,
+	TagsStreetfood,
+	TagsSoup,
+	TagsCoffie,
+	TagsYzbek,
+	TagsShashlik,
+	TagsVipechka,
+	TagsDeserty,
+	TagsSendvichi,
+	TagsEurope,
+	TagsBlini,
+	TagsFastfood,
+	TagsChildren,
+	TagsVostok,
+	TagsByriat,
+	TagsSteiki,
+}
+
+func (e Tags) IsValid() bool {
+	switch e {
+	case TagsBurger, TagsShushi, TagsKavkaz, TagsRussia, TagsPizza, TagsChina, TagsJapan, TagsGruzia, TagsStreetfood, TagsSoup, TagsCoffie, TagsYzbek, TagsShashlik, TagsVipechka, TagsDeserty, TagsSendvichi, TagsEurope, TagsBlini, TagsFastfood, TagsChildren, TagsVostok, TagsByriat, TagsSteiki:
+		return true
+	}
+	return false
+}
+
+func (e Tags) String() string {
+	return string(e)
+}
+
+func (e *Tags) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = Tags(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid Tags", str)
+	}
+	return nil
+}
+
+func (e Tags) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
 }
