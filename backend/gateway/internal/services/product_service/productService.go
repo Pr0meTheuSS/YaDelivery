@@ -2,6 +2,7 @@ package product_service
 
 import (
 	"context"
+	"fmt"
 	"gateway/internal/api/graph/model"
 )
 
@@ -18,11 +19,12 @@ func (p *ProductService) GetProducts(ctx context.Context, idShop string) ([]*mod
 	products := make([]*model.Product, 0)
 	for i := 0; i < 20; i++ {
 		products = append(products, &model.Product{
-			IDPriduct: string(rune(i%10+'0')) + string(rune(i/10+'0')),
-			Name:      "Я продукт" + string(rune(i%10+'0')) + string(rune(i/10+'0')),
+			IDPriduct: fmt.Sprintf("%d", i),
+			Name:      "Я продукт " + string(rune(i%10+'0')) + string(rune(i/10+'0')),
 			Image:     nil,
-			Info:      "Я продукт" + string(rune(i%10+'0')) + string(rune(i/10+'0')) + "\ninfo1\ninfo2",
+			Info:      "Я продукт " + string(rune(i%10+'0')) + string(rune(i/10+'0')) + "\ninfo1\ninfo2",
 			Weight:    i * 100,
+			Cost:      i,
 			FoodInfo:  nil,
 		})
 	}

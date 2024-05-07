@@ -29,5 +29,5 @@ func main() {
 	fmt.Printf("Version: %s\n", cfg.Version)
 	app := app.NewApp(&cfg)
 
-	app.RunApp(context.Background())
+	log.Fatal(app.RunApp(context.Background()))
 }
