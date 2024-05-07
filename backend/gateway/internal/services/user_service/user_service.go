@@ -76,8 +76,6 @@ func (s *UserServiceImpl) Login(ctx context.Context,
 		return nil, err
 	}
 
-	log.Printf("name: %s token: %s\n", response.User.Name, response.Token)
-
 	return &models.LoginResponse{
 		ID:    response.User.Id,
 		Name:  response.User.Name,

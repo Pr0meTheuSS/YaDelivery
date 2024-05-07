@@ -3,7 +3,6 @@ package converter
 import (
 	"auth-service/internal/model/DTOs"
 	serviceProtocol "auth-service/pkg/serviceProtocol"
-	"log"
 )
 
 func RegisterResponseDTOtoProtoMessage(response *DTOs.UserRegistrationResponseDTO) *serviceProtocol.UserRegistrationResponse {
