@@ -2,6 +2,7 @@ package UserService
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"gateway/internal/models"
 	"log"
@@ -74,6 +75,10 @@ func (s *UserServiceImpl) Login(ctx context.Context,
 	if err != nil {
 		log.Printf("grpc method invoke fail: %v\n", err)
 		return nil, err
+	}
+
+	if response.Token == "" {
+		return nil, errors.New("incorrect login or password")
 	}
 
 	return &models.LoginResponse{
