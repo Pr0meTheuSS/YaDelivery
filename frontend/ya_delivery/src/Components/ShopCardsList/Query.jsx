@@ -14,7 +14,6 @@ export const getShops = gql`
 const getProducts = gql`
   query GetProducts($idShop: ID!) {
     GetProducts(idShop: $idShop) {
-      id
       name
       price
     }

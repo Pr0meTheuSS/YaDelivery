@@ -2,7 +2,6 @@ import ShopCard from "../ShopCard/ShopCard"
 import { Grid } from "@mui/material";
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import { gql } from '@apollo/client';
 import { getShops } from '../ShopCardsList/Query';
 
 const ShopCardsList = ({ children }) => {
