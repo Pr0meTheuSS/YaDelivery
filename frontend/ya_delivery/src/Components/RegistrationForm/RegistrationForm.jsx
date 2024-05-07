@@ -39,13 +39,14 @@ const RegistrationForm = () => {
         try {
             const result = await registerUser({
                 variables: {
-                    username: username.value,
-                    email: email.value,
-                    password: password.value
+                    input: {
+                        name: username.value,
+                        email: email.value,
+                        password: password.value
+                    }   
                 }
-            });
-            console.log(result.data.registerUser.token); // Обработка токена после успешной регистрации
-            localStorage.setItem('authToken', result.data.registerUser.token); // Сохранение токена в localStorage
+            });            console.log(result.data.register.status); // Обработка токена после успешной регистрации
+            localStorage.setItem('authToken', result.data.register.status); // Сохранение токена в localStorage
         } catch (e) {
             console.error("Registration error:", e);
         }
