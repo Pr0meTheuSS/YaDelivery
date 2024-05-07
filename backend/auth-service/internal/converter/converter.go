@@ -29,17 +29,13 @@ func ProtoMessageToLoginRequestDTO(request *serviceProtocol.UserLoginRequest) *D
 
 func LoginResponseDTOtoProtoMessage(response *DTOs.UserLoginResponseDTO) *serviceProtocol.UserLoginResponse {
 	if response.User == nil {
-		log.Printf("!!!!!!!!\n")
 		return &serviceProtocol.UserLoginResponse{
 			User:  nil,
 			Token: response.Token,
 		}
 	}
 
-	log.Printf("!! %s %s\n", response.User.Name, response.User.Email)
-
 	return &serviceProtocol.UserLoginResponse{
-
 		User: &serviceProtocol.UserInfo{
 			Id:    response.User.ID,
 			Name:  response.User.Name,
