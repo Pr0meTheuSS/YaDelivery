@@ -1,7 +1,6 @@
 package graph
 
 import (
-	userrepository "gateway/internal/repositories/user_repository"
 	organizationService "gateway/internal/services/organization_service"
 	productService "gateway/internal/services/product_service"
 	shopService "gateway/internal/services/shop_service"
@@ -21,7 +20,7 @@ type Resolver struct {
 
 func NewResolver() *Resolver {
 	return &Resolver{
-		userService:    userservice.NewUserService(userrepository.NewUserRepository()),
+		userService:    userservice.NewUserService(),
 		shopService:    shopService.NewShopService(),
 		orgService:     organizationService.NewOrganizationService(),
 		productService: productService.NewProductService(),

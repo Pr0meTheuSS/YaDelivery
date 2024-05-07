@@ -1,0 +1,27 @@
+type User {
+  ID: Int!
+  name: String!
+  Email: String!
+}
+
+type LoginResponse {
+  ID: Int!
+  name: String!
+  email: String!
+  token: String!
+}
+
+type RegistrationResponse {
+  status: Int!
+}
+
+input RegistrationRequest {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input LoginRequest {
+  email: String!
+  password: String!
+}

@@ -6,16 +6,23 @@ import (
 	"gateway/internal/app"
 	"gateway/internal/config"
 	"log"
+	"os"
 
 	"github.com/caarlos0/env"
 	"github.com/joho/godotenv"
 )
 
 func main() {
+	confPath := os.Getenv("GATEWAY_CONF_PATH")
+
+	if confPath == "" {
+		panic("cannot start: not found env.variable GATEWAY_CONF_PATH")
+	}
+
 	// Loading the environment variables from '.env' file.
-	err := godotenv.Load()
+	err := godotenv.Load(confPath)
 	if err != nil {
-		log.Fatalf("unable to load .env file: %e", err)
+		log.Fatalf("godotenv.Load(): %e", err)
 	}
 
 	cfg := config.Config{} // 👈 new instance of `Config`
@@ -26,7 +33,8 @@ func main() {
 	}
 
 	fmt.Println("Config:")
-	fmt.Printf("Version: %s\n", cfg.Version)
+	fmt.Printf("Listen TCP port: %d\nVersion: %s\n", cfg.Port, cfg.Version)
+
 	app := app.NewApp(&cfg)
 
 	app.RunApp(context.Background())
