@@ -24,13 +24,15 @@ const LoginForm = () => {
         try {
             const result = await authenticate({
                 variables: {
-                    email: email.value,
-                    password: password.value
+                    input: {  // Передаем переменные в объект input
+                        email: email.value,
+                        password: password.value
+                    }   
                 }
             });
-            console.log(result.data.authenticate.token); // Логирование полученного токена
+            console.log(result.data.login.token); // Логирование полученного токена
             // Сохраняем токен в localStorage
-            localStorage.setItem('authToken', result.data.authenticate.token);
+            localStorage.setItem('authToken', result.data.login.token);
         } catch (error) {
             console.error("Ошибка аутентификации", error);
         }
