@@ -1,8 +1,9 @@
 import './ShopCard.css';
-import logo from '../assets/base-shop-image.png'
+import logo from '../Assets/base-shop-image.png'
 import { Box, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import React from 'react';
 
 const ShopCard = (props) => {
     const [id] = useState(1);

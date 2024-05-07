@@ -1,5 +1,6 @@
 import ShopCardsList from "../ShopCardsList/ShopCardsList"
 import { useEffect } from "react";
+import React from 'react';
 import CustomAppBar from "../CustomAppBar/CustomAppBar";
 
 const Main = () => {

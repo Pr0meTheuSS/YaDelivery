@@ -23,6 +23,9 @@ li {
     list-style: none;
 }
 
+h2 {
+    margin-bottom: 10px;
+}
 
 h2, h4 {
     color: #ccc;

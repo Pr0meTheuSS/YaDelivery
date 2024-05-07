@@ -23,7 +23,7 @@ const CustomAppBar = () => {
   return (
     <AppBar position="fixed" sx={{bgcolor: '#ccc'}}>
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" component="div" color="#333" sx={{ flexGrow: 1 }}>
           Доставушки
         </Typography>
         <IconButton onClick={goOnCartPage} color="#333" aria-label="Корзина">
