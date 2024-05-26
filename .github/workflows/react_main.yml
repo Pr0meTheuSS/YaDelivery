@@ -25,7 +25,7 @@ jobs:
 
     - name: Install dependencies
       working-directory: 'frontend/ya_delivery'
-      run: npm install
+      run: npm install --legacy-peer-deps
 
     - name: Build the React app
       working-directory: 'frontend/ya_delivery'
