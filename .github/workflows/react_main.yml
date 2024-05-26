@@ -37,6 +37,7 @@ jobs:
       run: sudo apt update && sudo apt install -y sshpass
 
     - name: Deploy to server
+      working-directory: 'frontend/ya_delivery'
       env:
         SSH_HOST: ${{ secrets.SSH_HOST }}
         SSH_USER: ${{ secrets.SSH_USER }}
