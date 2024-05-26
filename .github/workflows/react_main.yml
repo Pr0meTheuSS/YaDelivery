@@ -24,9 +24,11 @@ jobs:
         node-version: '16'
 
     - name: Install dependencies
+      working-directory: 'frontend/ya_delivery'
       run: npm install
 
     - name: Build the React app
+      working-directory: 'frontend/ya_delivery'
       run: npm run build
 
     - name: Deploy to server
