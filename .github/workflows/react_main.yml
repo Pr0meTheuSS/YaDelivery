@@ -40,7 +40,8 @@ jobs:
         SSH_USER: ${{ secrets.SSH_USER }}
         SSH_PORT: ${{ secrets.SSH_PORT }}
       run: |
+        echo "$SSH_PRIVATE_KEY"
         echo "$SSH_PRIVATE_KEY" > private_key
         chmod 600 private_key
-        rsync -avz -e "ssh -i private_key -p $SSH_PORT" build/ $SSH_USER@$SSH_HOST:/root/ya_dostavka/webpack
+        scp -i private_key -r build/* $SSH_USER@$SSH_HOST:/root/ya_dostavka/webpack/
         rm private_key
