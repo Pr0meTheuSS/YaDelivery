@@ -1,22 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { useParams } from 'react-router-dom';
-
-// const GET_SHOP = gql`
-//   query GetShop($shopId: ID!) {
-//     shop(id: $shopId) {
-//       id
-//       name
-//       image
-//       address
-//       geoPos {
-//         latitude
-//         longitude
-//       }
-//       info
-//     }
-//   }
-// `;
+import {  Typography, Container, Box, Paper, Button } from '@mui/material';
+import CustomAppBar from "../CustomAppBar/CustomAppBar";
 
 const getProducts = gql`
   query GetProducts($idShop: ID!) {
@@ -29,58 +15,115 @@ const getProducts = gql`
 `;
 
 const ShopPage = () => {
-  const { id } = useParams(0);
-
+  const { id } = useParams();
   const { loading, error, data } = useQuery(getProducts, {
     variables: { idShop: id },
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem('cart');
+    return savedCart ? JSON.parse(savedCart) : {};
+  });
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
+  const addToCart = (product) => {
+    console.log(product);
+    console.log(product.cost);
+    setCart((prevCart) => ({
+      ...prevCart,
+      [JSON.stringify(product)]: (prevCart[JSON.stringify(product)] || 0) + 1,
+    }));
+  };
+
+  const removeFromCart = (product) => {
+    setCart((prevCart) => {
+      const newCart = { ...prevCart };
+      if (newCart[JSON.stringify(product)] > 0) {
+        newCart[JSON.stringify(product)] -= 1;
+        if (newCart[JSON.stringify(product)] === 0) {
+          delete newCart[JSON.stringify(product)];
+        }
+      }
+      return newCart;
+    });
+  };
+
+  if (loading) return <Typography>Loading...</Typography>;
+  if (error) return <Typography>Error: {error.message}</Typography>;
 
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column", // добавлено для вертикального выравнивания элементов списка
-          backgroundColor: "#333", // фон всего контейнера
-          borderRadius: "8px",
-          padding: "20px", // добавлено немного внутреннего отступа для визуального улучшения
-        }}
-      >
-        <h2>Products:</h2>
-        <ul
-          
+      <CustomAppBar position="static">
+      </CustomAppBar>
+      
+      <Container sx={{ marginTop: 10 , width: 500}}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
         >
-          {data.GetProducts.map((product) => (
-            <li 
-              style={{
-                backgroundColor: "#444", // фон каждой карточки продукта
-                borderRadius: "8px", // скругление углов каждой карточки
-                margin: "10px", // отступы между карточками
-                padding: "10px", // внутренние отступы карточек
-                color: '#FFF' // цвет текста в карточке, чтобы лучше читался на темном фоне
+          <Box
+            sx={{
+              backgroundColor: "#333",
+              borderRadius: 2,
+              padding: 2,
+              width: "50%",
+            }}
+          >
+            <Typography  variant="h4" color="white" gutterBottom>
+              Products:
+            </Typography>
+            <Box
+              sx={{
+                width: "100%",
+                listStyleType: "none",
+                padding: 0,
+                margin: 0,
               }}
-              key={product.idPriduct}>
-              <h3>{product.name}</h3>
-              <p>Cost: {product.cost}</p>
-              <button
-                style={{ 
-                  backgroundColor: '#FFF', // фон кнопки
-                  color: '#333', // цвет текста кнопки
-                  border: 'none', // убрать стандартный бордер кнопки
-                  padding: '5px 10px', // паддинги кнопки
-                  borderRadius: '5px', // скругление углов кнопки
-                  cursor: 'pointer', // курсор в виде указателя
-                  marginTop: '10px'
-                }}
-              >Add to Cart</button>
-            </li>
-          ))}
-        </ul>
-      </div>
+            >
+              {data.GetProducts.map((product) => (
+                <Paper
+                  key={product.idPriduct}
+                  sx={{
+                    backgroundColor: "#444",
+                    borderRadius: 2,
+                    margin: "10px 0",
+                    padding: 2,
+                    color: "#FFF",
+                  }}
+                >
+                  <Typography variant="h6">{product.name}</Typography>
+                  <Typography>Cost: {product.cost}</Typography>
+                  <Box sx={{ display: "flex", marginTop: 1 }}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      sx={{ marginRight: 1 }}
+                      onClick={() => addToCart(product)}
+                    >
+                      Add to Cart
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => removeFromCart(product)}
+                    >
+                      Remove from Cart
+                    </Button>
+                  </Box>
+                  <Typography sx={{ marginTop: 1 }}>
+                    Quantity: {cart[JSON.stringify(product)] || 0}
+                  </Typography>
+                </Paper>
+              ))}
+            </Box>
+          </Box>
+        </Box>
+      </Container>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import './RegistrationForm.css'
 import { FaUser, FaLock, FaPray } from "react-icons/fa";
 import useInput from "../../Hooks/InputHooks";
 import { registerUserMutation } from "./Mutation"
-import { useMutation, gql } from '@apollo/client';
+import { useMutation} from '@apollo/client';
 
 const RegistrationForm = () => {
     const email = useInput('', {   
@@ -45,7 +45,8 @@ const RegistrationForm = () => {
                         password: password.value
                     }   
                 }
-            });            console.log(result.data.register.status); // Обработка токена после успешной регистрации
+            });            
+            console.log(result.data.register.status); // Обработка токена после успешной регистрации
             localStorage.setItem('authToken', result.data.register.status); // Сохранение токена в localStorage
         } catch (e) {
             console.error("Registration error:", e);

@@ -1,7 +1,15 @@
 import React from 'react';
+import CustomAppBar from "../CustomAppBar/CustomAppBar";
 
 const AccountPage = () => {
-    return <>Здесь будет информация об аккаунте пользователя</>;
+    return (
+        <>
+        <CustomAppBar position="static">
+        </CustomAppBar>
+    
+        <>Здесь будет информация об аккаунте пользователя</>
+        </>    
+    );
 }
 
 export default AccountPage;

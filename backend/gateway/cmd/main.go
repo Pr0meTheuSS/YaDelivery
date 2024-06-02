@@ -6,21 +6,14 @@ import (
 	"gateway/internal/app"
 	"gateway/internal/config"
 	"log"
-	"os"
 
 	"github.com/caarlos0/env"
 	"github.com/joho/godotenv"
 )
 
 func main() {
-	confPath := os.Getenv("GATEWAY_CONF_PATH")
-
-	if confPath == "" {
-		panic("cannot start: not found env.variable GATEWAY_CONF_PATH")
-	}
-
 	// Loading the environment variables from '.env' file.
-	err := godotenv.Load(confPath)
+	err := godotenv.Load()
 	if err != nil {
 		log.Fatalf("godotenv.Load(): %e", err)
 	}

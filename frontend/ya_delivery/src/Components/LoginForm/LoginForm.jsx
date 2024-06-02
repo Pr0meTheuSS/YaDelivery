@@ -3,7 +3,7 @@ import { FaUser, FaLock } from "react-icons/fa";
 import useInput from "../../Hooks/InputHooks";
 import React from 'react';
 import { loginUserMutation } from './Mutation';
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 const LoginForm = () => {
     const email = useInput('', {   
