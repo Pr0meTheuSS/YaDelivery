@@ -1,5 +1,3 @@
-import React from 'react';
-import { useQuery } from '@apollo/client';
 import { gql } from '@apollo/client';
 
 export const getShops = gql`
@@ -11,7 +9,7 @@ export const getShops = gql`
   }
 `;
 
-const getProducts = gql`
+export const getProducts = gql`
   query GetProducts($idShop: ID!) {
     GetProducts(idShop: $idShop) {
       name

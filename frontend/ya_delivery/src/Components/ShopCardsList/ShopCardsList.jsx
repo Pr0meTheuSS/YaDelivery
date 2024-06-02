@@ -3,6 +3,7 @@ import { Grid } from "@mui/material";
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { getShops } from '../ShopCardsList/Query';
+import CustomAppBar from "../CustomAppBar/CustomAppBar";
 
 const ShopCardsList = ({ children }) => {
     const lat = 55.000;
@@ -15,7 +16,10 @@ const ShopCardsList = ({ children }) => {
     if (error) return <p>Error :( </p>;
 
     return (
-        <Grid
+        <>
+            <CustomAppBar position="static">
+            </CustomAppBar>
+            <Grid
             container
             display="flex"
             flexDirection="column"
@@ -30,6 +34,8 @@ const ShopCardsList = ({ children }) => {
                 />
             ))}
         </Grid>
+
+        </>
     )
 }
 

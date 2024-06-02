@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, IconButton, Typography,  Avatar } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Button,  Avatar } from '@mui/material';
 import { ShoppingCart, AccountCircle } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,29 +10,28 @@ const CustomAppBar = () => {
   }
 
   const goOnCartPage = () => {
-    alert('openCartPage');
-    routeChange('cart');
+    routeChange('/cart');
   }
 
   const goOnAccountPage = () => {
-    alert('openAccountPage');
-    routeChange('account');
+    routeChange('/account');
   }
-
+  const goOnMainPage = () => {
+    routeChange('/');
+  }
 
   return (
     <AppBar position="fixed" sx={{bgcolor: '#ccc'}}>
       <Toolbar>
-        <Typography variant="h6" component="div" color="#333" sx={{ flexGrow: 1 }}>
+        <Button onClick={goOnMainPage} variant="h6" color="#333">
           Доставушки
-        </Typography>
+        </Button>
         <IconButton onClick={goOnCartPage} color="#333" aria-label="Корзина">
           <ShoppingCart />
         </IconButton>
         <IconButton onClick={goOnAccountPage} color="#333" aria-label="Личный кабинет">
           <AccountCircle />
         </IconButton>
-        <Avatar alt="Profile Picture" src="/path/to/profile-picture.jpg" />
       </Toolbar>
     </AppBar>
   );

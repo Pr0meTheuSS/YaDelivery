@@ -15,7 +15,6 @@ const ShopCard = ({ id, name }) => {
     }
 
     const openCardPage = () => {
-        alert('openCardPage');
         routeChange();
     }
 
