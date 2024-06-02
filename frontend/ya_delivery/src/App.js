@@ -10,7 +10,7 @@ import AccountPage from './Components/AccountPage/AccountPage';
 import{ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
 
 const client = new ApolloClient({
-  uri : 'http://localhost:8080',
+  uri : 'http://tupiki.online/api/v1/',
   cache : new InMemoryCache(),
 });
 
