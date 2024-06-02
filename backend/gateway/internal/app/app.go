@@ -37,8 +37,7 @@ func NewApp(cfg *config.Config) *App {
 	// Применяем CORS middleware ко всем обработчикам
 	mux.Use(cors.Handler)
 
-	// mux.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	mux.Handle("/", srv)
+	mux.Handle("/api/v1/", srv)
 
 	log.Printf("Connect to http://localhost:%s/ for GraphQL playground", strconv.Itoa(cfg.Port))
 
