@@ -4,8 +4,11 @@ import useInput from "../../Hooks/InputHooks";
 import React from 'react';
 import { loginUserMutation } from './Mutation';
 import { useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+    let navigate = useNavigate(); 
+
     const email = useInput('', {   
         isEmpty: true,
         isEmail: true
@@ -31,8 +34,9 @@ const LoginForm = () => {
                 }
             });
             console.log(result.data.login.token); // Логирование полученного токена
-            // Сохраняем токен в localStorage
             localStorage.setItem('authToken', result.data.login.token);
+            navigate("/");
+            
         } catch (error) {
             console.error("Ошибка аутентификации", error);
         }
