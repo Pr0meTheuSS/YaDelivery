@@ -22,7 +22,7 @@ func DbHandlerNew() (*gorm.DB, error) {
 	db_user := os.Getenv(DATABASE_USER_ENV)
 	db_name := os.Getenv(DATABASE_NAME_ENV)
 
-	dbConnectionString := fmt.Sprintf("postgres://%s:pass@%s:%s/%s", db_user, db_host, db_port, db_name)
+	dbConnectionString := fmt.Sprintf("postgres://%s:password@%s:%s/%s", db_user, db_host, db_port, db_name)
 
 	db_handler, err := gorm.Open(postgres.Open(dbConnectionString), &gorm.Config{})
 	if err != nil {

@@ -25,7 +25,6 @@ func main() {
 		log.Fatalf("unable to parse ennvironment variables: %e", err)
 	}
 
-	fmt.Println("Config:")
 	fmt.Printf("Listen TCP port: %d\nVersion: %s\n", cfg.Port, cfg.Version)
 
 	app := app.NewApp(&cfg)

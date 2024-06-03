@@ -22,9 +22,15 @@ type UserServiceImpl struct {
 	grpcConn *grpc.ClientConn
 }
 
-func NewUserService() UserService {
-	grpcServiceConn, err := grpc.Dial("127.0.0.1:8080",
-		grpc.WithTransportCredentials(insecure.NewCredentials()))
+func NewUserService(serviceHost string, servicePort int32) UserService {
+	grpcServiceConn, err := grpc.Dial(
+		fmt.Sprintf("%s:%d", serviceHost, servicePort),
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithDefaultCallOptions(
+			grpc.MaxCallRecvMsgSize(1024*1024*50), // Увеличить до 50 MB
+			grpc.MaxCallSendMsgSize(1024*1024*50), // Увеличить до 50 MB
+		),
+	)
 
 	if err != nil {
 		fmt.Printf("NewUserService(): fail to connect gRPC UserService: %v\n", err)
